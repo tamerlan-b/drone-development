@@ -67,7 +67,18 @@ docker run -it --privileged \
 -p 14570:14570/udp \
 --name=mycontainer px4io/px4-dev-ros-melodic:latest bash
 ```  
-где вместо ```{DISPLAY_IP}```  надо указать порт подключения к дисплею из программы VcXsrv Windows X Server.  
+где вместо ```{DISPLAY_IP}```  надо указать IP-адрес подключения к дисплею из программы VcXsrv Windows X Server.  Его можно получить внутри контейнера командой (способ описан [здесь](https://github.com/microsoft/WSL/issues/6430)):  
+```bash  
+grep nameserver /etc/resolv.conf
+```  
+Пример вывода:  
+```bash  
+nameserver 127.0.1.1
+```  
+Тогда при запуске контейнера указывается параметр вида:  
+```bash  
+-e DISPLAY=127.0.1.1:0 \
+```
 
 ```-v `pwd`/src/PX4-Autopilot:/src/PX4-Autopilot``` - означает, что мы подключаем папку ``` `pwd`/src/PX4-Autopilot``` как том и в контейнере она будет располагаться по пути ```/src/PX4-Autopilot```.  
 
