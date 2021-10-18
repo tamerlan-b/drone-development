@@ -37,6 +37,7 @@ xhost+
 и запустить контейнер с параметрами:  
 ```bash
 docker run -it --privileged \
+--network host \
 --gpus=all \
 --runtime=nvidia \
 --tmpfs=/tmp \
@@ -47,7 +48,6 @@ docker run -it --privileged \
 -e NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES:-all} \
 -e NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics \
 -v `pwd`/src/PX4-Autopilot:/src/PX4-Autopilot \
--p 14570:14570/udp \
 --name=mycontainer px4io/px4-dev-ros-melodic:latest bash
 ```  
 </details>
@@ -62,9 +62,9 @@ VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/).
 
 ```bash  
 docker run -it --privileged \
+--network host \
 -e DISPLAY={DISPLAY_IP} \
 -v `pwd`/src/PX4-Autopilot:/src/PX4-Autopilot \
--p 14570:14570/udp \
 --name=mycontainer px4io/px4-dev-ros-melodic:latest bash
 ```  
 где вместо ```{DISPLAY_IP}```  надо указать IP-адрес подключения к дисплею из программы VcXsrv Windows X Server.  Его можно получить внутри контейнера командой (способ описан [здесь](https://github.com/microsoft/WSL/issues/6430)):  
